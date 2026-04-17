@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 import { Sparkles, Lock, Zap, Palette, Smartphone, Printer, Heart, ArrowRight, Star, Languages, ScrollText, Wand2, Gem } from 'lucide-react';
 
 interface HomeStaticContentProps {
@@ -99,11 +98,13 @@ function ShowcaseSection({ locale }: { locale: string }) {
                             <div key={item.src} className="mb-6 break-inside-avoid">
                                 <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70 shadow-[0_25px_80px_-35px_rgba(59,130,246,0.45)]">
                                     <div className={`relative w-full ${item.height}`}>
-                                        <Image
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
                                             src={item.src}
                                             alt={item.title}
-                                            fill
-                                            className="object-cover"
+                                            className="absolute inset-0 h-full w-full object-cover"
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent" />
                                     </div>
