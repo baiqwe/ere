@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
         const { data: customer, error: fetchError } = await supabase
             .from("customers")
-            .select("*")
+            .select("id, user_id, credits, created_at, updated_at")
             .eq("user_id", user.id)
             .single();
 
@@ -34,7 +34,14 @@ export async function GET(request: Request) {
             updated_at: customer.updated_at
         };
 
-        return NextResponse.json({ credits: creditsData });
+        return NextResponse.json(
+            { credits: creditsData },
+            {
+                headers: {
+                    "Cache-Control": "private, max-age=10, stale-while-revalidate=30",
+                },
+            },
+        );
 
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
@@ -74,11 +81,16 @@ export async function POST(request: Request) {
         }
 
         // Fetch updated balance to return
-        const { data: customer } = await supabase
+        const { data: customer, error: customerError } = await supabase
             .from("customers")
-            .select("*")
+            .select("id, user_id, credits, created_at, updated_at")
             .eq("user_id", user.id)
             .single();
+
+        if (customerError || !customer) {
+            console.error("Error fetching updated credits:", customerError);
+            return NextResponse.json({ error: "Failed to fetch updated credits" }, { status: 500 });
+        }
 
         const creditsData = {
             id: customer.id,

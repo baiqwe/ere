@@ -3,11 +3,26 @@ import { NextResponse, type NextRequest } from 'next/server'
 import createIntlMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 
+function shouldRefreshSupabaseSession(pathname: string) {
+  const segments = pathname.split('/').filter(Boolean)
+
+  if (segments.length === 0) {
+    return false
+  }
+
+  const [, section] = segments
+  return section === 'dashboard'
+}
+
 export async function middleware(request: NextRequest) {
   try {
     // 1. 将 intl 中间件初始化移入函数内部，防止顶层初始化崩溃导致整个模块加载失败
     const intlMiddleware = createIntlMiddleware(routing)
     let response = intlMiddleware(request)
+
+    if (!shouldRefreshSupabaseSession(request.nextUrl.pathname)) {
+      return response
+    }
 
     // 2. 初始化 Supabase 客户端
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

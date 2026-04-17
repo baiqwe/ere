@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { CREDITS_PER_GENERATION } from "@/config/pricing";
+import { beginSingleFlight, endSingleFlight, takeRateLimit } from "@/utils/rate-limit";
 
 // Use Node.js runtime for Vercel
 export const runtime = 'nodejs';
@@ -111,6 +112,7 @@ Rules:
 
 export async function POST(request: NextRequest) {
     const supabase = await createClient();
+    let singleFlightKey: string | null = null;
 
     try {
         const {
@@ -128,6 +130,31 @@ export async function POST(request: NextRequest) {
                 error: "Please sign in first",
                 code: "UNAUTHORIZED"
             }, { status: 401 });
+        }
+
+        const forwardedFor = request.headers.get("x-forwarded-for") || "";
+        const clientIp = forwardedFor.split(",")[0]?.trim() || "unknown";
+        const rateLimitKey = `ai:${user.id}:${clientIp}`;
+        singleFlightKey = `ai-active:${user.id}`;
+        const rateLimitResult = takeRateLimit(rateLimitKey, 3, 60 * 1000);
+
+        if (!rateLimitResult.allowed) {
+            return NextResponse.json({
+                error: "Too many generation requests, please wait a moment",
+                code: "RATE_LIMITED",
+            }, {
+                status: 429,
+                headers: {
+                    "Retry-After": String(rateLimitResult.retryAfterSeconds),
+                },
+            });
+        }
+
+        if (!beginSingleFlight(singleFlightKey)) {
+            return NextResponse.json({
+                error: "A generation is already in progress for this account",
+                code: "GENERATION_IN_PROGRESS",
+            }, { status: 409 });
         }
 
         // 2. Input Validation
@@ -207,6 +234,7 @@ export async function POST(request: NextRequest) {
             console.log("Model:", selectedModel);
 
             const response = await fetch(ZHIPU_API_URL, {
+                signal: AbortSignal.timeout(20000),
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -287,5 +315,9 @@ export async function POST(request: NextRequest) {
             { error: error.message || "Server error", code: "UNKNOWN_ERROR" },
             { status: 500 }
         );
+    } finally {
+        if (singleFlightKey) {
+            endSingleFlight(singleFlightKey);
+        }
     }
 }
