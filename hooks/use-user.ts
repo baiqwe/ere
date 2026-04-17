@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+import { createClient, hasSupabaseBrowserEnv } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 
 export function useUser() {
@@ -9,6 +9,12 @@ export function useUser() {
   const supabase = createClient();
 
   useEffect(() => {
+    if (!hasSupabaseBrowserEnv || !supabase) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     // Get user on mount
     getUser();
 
@@ -26,6 +32,12 @@ export function useUser() {
   }, []);
 
   async function getUser() {
+    if (!supabase) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     try {
       const {
         data: { user },

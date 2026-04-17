@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { QuickRefillModal } from '@/components/payment/quick-refill-modal';
 import { useToast } from '@/hooks/use-toast';
 import { useCredits } from '@/hooks/use-credits';
-import { createClient } from '@/utils/supabase/client';
+import { createClient, hasSupabaseBrowserEnv } from '@/utils/supabase/client';
 
 // 风格选项
 const STYLES = [
@@ -93,9 +93,16 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
 
     // 组件挂载时检查最新的登录状态，解决登录后页面不刷新导致 user prop 过期的问题
     useEffect(() => {
+        if (!hasSupabaseBrowserEnv) {
+            return;
+        }
+
         const checkUser = async () => {
             try {
                 const supabase = createClient();
+                if (!supabase) {
+                    return;
+                }
                 const { data: { user: latestUser } } = await supabase.auth.getUser();
                 if (latestUser) {
                     setCurrentUser(latestUser);
@@ -110,6 +117,9 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
 
         // 监听 auth 状态变化
         const supabase = createClient();
+        if (!supabase) {
+            return;
+        }
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_IN' && session?.user) {
                 setCurrentUser(session.user);

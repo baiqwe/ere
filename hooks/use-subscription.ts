@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+import { createClient, hasSupabaseBrowserEnv } from "@/utils/supabase/client";
 import {
   SubscriptionStatus,
   ACTIVE_STATUSES,
@@ -57,10 +57,20 @@ export function useSubscription() {
   const supabase = createClient();
 
   useEffect(() => {
+    if (!hasSupabaseBrowserEnv || !supabase) {
+      setLoading(false);
+      return;
+    }
+
     checkSubscription();
   }, []);
 
   const checkSubscription = async () => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     try {
       const {
         data: { user },
