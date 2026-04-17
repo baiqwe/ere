@@ -1,6 +1,6 @@
 /**
  * JSON-LD Structured Data for SoftwareApplication
- * Helps search engines understand GLM-Image as a web application
+ * Helps search engines understand ERNIE Image as a web application
  * 
  * Note: This is a server component to avoid hydration issues
  */
@@ -17,7 +17,7 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
         "description": t('description'),
         "applicationCategory": ["DesignApplication", "AITool"],
         "operatingSystem": "Web Browser",
-        "alternateName": ["GLM-4.5 Image", "GLM Image Generator", "Zhipu AI Alternative"],
+        "alternateName": ["ERNIE Image Generator", "Baidu ERNIE Image", "AI Image Generator"],
         "offers": {
             "@type": "Offer",
             "price": "0",
@@ -25,7 +25,7 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
             "description": "3 free generations for new users"
         },
         "featureList": [
-            "GLM-4.5 Text to Image Generation",
+            "ERNIE Image Text to Image Generation",
             "Multiple aspect ratios (1:1, 16:9, 9:16)",
             "5 style presets (Photorealistic, Digital Art, Anime, Cinematic)",
             "No queue, instant generation",
@@ -43,4 +43,3 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
         />
     );
 }
-

@@ -38,7 +38,7 @@ export function Footer() {
               {t('tagline')}
             </p>
             <p className="mt-3 text-xs text-slate-500">
-              Powered by CogView-4 • GLM-Image
+              Powered by Baidu ERNIE • ERNIE Image
             </p>
           </div>
 
@@ -74,58 +74,6 @@ export function Footer() {
                 </Link>
               ))}
             </nav>
-          </div>
-        </div>
-
-        {/* Friends / 友链 */}
-        <div className="mt-8 pt-6 border-t border-slate-800">
-          <h3 className="text-sm font-semibold text-slate-200 mb-4">
-            {currentLocale === 'zh' ? '友情链接' : 'Friends'}
-          </h3>
-          <div className="flex flex-wrap items-center gap-6">
-            <a
-              href="https://describepicture.cc/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="AI Image Describer"
-              className="text-sm text-slate-400 transition-colors hover:text-indigo-400"
-            >
-              AI Image Describer
-            </a>
-            <a
-              href="https://fast-wan.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-slate-400 transition-colors hover:text-indigo-400"
-            >
-              Fast Wan
-            </a>
-            <a
-              href="https://goodaitools.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://goodaitools.com/assets/images/badge-dark.png"
-                alt="Good AI Tools"
-                height={54}
-                className="h-[54px] w-auto opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </a>
-            <a
-              href="https://findly.tools/glm-image-generator-precision-in-every-pixel?utm_source=glm-image-generator-precision-in-every-pixel"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://findly.tools/badges/findly-tools-badge-light.svg"
-                alt="Featured on findly.tools"
-                width={150}
-                className="h-auto w-[150px] opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </a>
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 {
-  "name": "GLM-Image",
-  "short_name": "GLM-Image",
+  "name": "ERNIE Image",
+  "short_name": "ERNIE Image",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

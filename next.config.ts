@@ -42,6 +42,11 @@ const nextConfig: NextConfig = {
         hostname: '*.ufileos.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'bj.bcebos.com',
+        pathname: '/**',
+      },
     ],
   },
 

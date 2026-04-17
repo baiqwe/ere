@@ -15,8 +15,8 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     const isZh = locale === 'zh';
     const title = isZh ? `关于我们 - ${siteConfig.name}` : `About Us - ${siteConfig.name}`;
     const description = isZh
-        ? 'GLM-Image 是基于智谱 CogView-4 的 AI 图像生成平台，提供高效、便捷的文生图服务。'
-        : 'GLM-Image is an AI image generation platform powered by Zhipu CogView-4, providing efficient text-to-image services.';
+        ? 'ERNIE Image 是新一代 AI 图像生成平台，提供高效、便捷的文生图服务。'
+        : 'ERNIE Image is a next-generation AI image generation platform built for fast and accessible text-to-image creation.';
 
     return {
         title,
@@ -72,12 +72,12 @@ export default async function AboutPage(props: { params: Promise<{ locale: strin
                             {isZh ? 'AI 图像生成' : 'AI Image Generation'}
                         </div>
                         <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                            {isZh ? '关于 GLM-Image' : 'About GLM-Image'}
+                            {isZh ? '关于 ERNIE Image' : 'About ERNIE Image'}
                         </h1>
                         <p className="text-xl text-slate-400 max-w-3xl mx-auto">
                             {isZh
-                                ? '基于智谱 CogView-4 的新一代 AI 图像生成平台，让创意触手可及。'
-                                : 'Next-generation AI image generation platform powered by Zhipu CogView-4, making creativity accessible to everyone.'}
+                                ? '新一代 AI 图像生成平台，让创意触手可及。'
+                                : 'A next-generation AI image generation platform that makes creativity accessible to everyone.'}
                         </p>
                     </div>
 
@@ -89,13 +89,13 @@ export default async function AboutPage(props: { params: Promise<{ locale: strin
                         <div className="space-y-4 text-slate-400">
                             <p>
                                 {isZh
-                                    ? 'GLM-Image 致力于让每个人都能轻松创作高质量的 AI 图像。我们相信，强大的 AI 技术应该简单易用，让创意不再受技术门槛的限制。'
-                                    : 'GLM-Image is committed to making high-quality AI image creation accessible to everyone. We believe powerful AI technology should be simple to use, removing technical barriers from creative expression.'}
+                                    ? 'ERNIE Image 致力于让每个人都能轻松创作高质量的 AI 图像。我们相信，强大的 AI 技术应该简单易用，让创意不再受技术门槛的限制。'
+                                    : 'ERNIE Image is committed to making high-quality AI image creation accessible to everyone. We believe powerful AI technology should be simple to use, removing technical barriers from creative expression.'}
                             </p>
                             <p>
                                 {isZh
-                                    ? '我们采用智谱 AI 的 CogView-4 模型，这是目前最先进的中文文生图模型之一，支持中英双语输入，能够精准理解您的创意描述。'
-                                    : 'We leverage Zhipu AI\'s CogView-4 model, one of the most advanced text-to-image models with native Chinese understanding, supporting both Chinese and English inputs to accurately interpret your creative descriptions.'}
+                                    ? '我们围绕 ERNIE Image 能力打造生成体验，支持中英双语输入，能够更准确地理解您的创意描述并快速出图。'
+                                    : 'We built the experience around ERNIE Image capabilities, with strong Chinese and English prompt understanding for fast, accurate generation.'}
                             </p>
                         </div>
                     </div>
@@ -107,12 +107,12 @@ export default async function AboutPage(props: { params: Promise<{ locale: strin
                                 <Sparkles className="h-6 w-6 text-indigo-400" />
                             </div>
                             <h3 className="text-lg font-bold text-white mb-2">
-                                {isZh ? 'CogView-4 驱动' : 'Powered by CogView-4'}
+                                {isZh ? 'ERNIE Image 驱动' : 'Powered by ERNIE Image'}
                             </h3>
                             <p className="text-slate-400 text-sm">
                                 {isZh
-                                    ? '采用智谱最新的图像生成模型，支持中英文输入，生成效果出色。'
-                                    : 'Using Zhipu\'s latest image generation model with excellent Chinese and English understanding.'}
+                                    ? '支持中英文输入，生成质量稳定，细节表达更自然。'
+                                    : 'Supports both Chinese and English prompts with strong quality and more natural detail rendering.'}
                             </p>
                         </div>
 

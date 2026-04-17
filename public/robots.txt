@@ -9,7 +9,7 @@ Disallow: /*/forgot-password
 Disallow: /*/dashboard
 
 # Host
-Host: https://glmimageonline.com
+Host: https://ernieai.net
 
 # Sitemaps
-Sitemap: https://glmimageonline.com/sitemap.xml
+Sitemap: https://ernieai.net/sitemap.xml
