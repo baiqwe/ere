@@ -27,6 +27,22 @@ export function Footer() {
     { label: t('link_about'), href: `${localePrefix}/about` },
   ];
 
+  const partnerSites = [
+    "animeify.co",
+    "cleanaiimages.com",
+    "clikerergames.com",
+    "deepseekmodel1.cc",
+    "devilhunterhub.com",
+    "ernieai.net",
+    "flux2klein.cc",
+    "glmimageonline.com",
+    "gptimage2.online",
+    "happyhorsevideo.xyz",
+    "imaveo.com",
+    "makebw.com",
+    "stepsnip.com",
+  ];
+
   return (
     <footer className="border-t border-slate-800 bg-slate-950">
       <div className="container px-4 py-12 md:py-16">
@@ -74,6 +90,27 @@ export function Footer() {
                 </Link>
               ))}
             </nav>
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-slate-800 pt-8">
+          <div className="flex flex-col gap-4">
+            <h3 className="text-sm font-semibold text-slate-200">
+              {currentLocale === "zh" ? "友情链接" : "Partner Sites"}
+            </h3>
+            <div className="flex flex-wrap gap-x-5 gap-y-3">
+              {partnerSites.map((domain) => (
+                <a
+                  key={domain}
+                  href={`https://${domain}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-slate-400 transition-colors hover:text-indigo-400"
+                >
+                  {domain}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
